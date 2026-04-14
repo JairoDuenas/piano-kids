@@ -99,7 +99,7 @@ export function LessonPlayer({ lesson, onBack }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
         {/* Right Column: Visualizer (First on mobile) */}
         <div className="lg:col-span-2 space-y-4 order-1 lg:order-2">
           <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-zinc-200">
