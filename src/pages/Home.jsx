@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { LessonList } from "../components/lessons/LessonsList";
-import { LessonPlayer } from "../components/lessons/LessonsPlayer";
+import { LessonList } from "../components/lessons/LessonList";
+import { LessonPlayer } from "../components/lessons/LessonPlayer";
 import { Piano } from "../components/piano/Piano";
 import { Header } from "../components/layout/Header";
 import { Footer } from "../components/layout/Footer";
 import { Hero } from "../components/home/Hero";
+import { InstallButton } from "../components/ui/InstallButton";
 import { motion, AnimatePresence } from "motion/react";
 
 function BackgroundDecoration() {
@@ -61,6 +62,9 @@ export default function Home() {
                   highlight="piano real"
                   description="Sigue la lluvia de colores y aprende a tocar tus canciones favoritas en tu propio instrumento."
                 />
+                <div className="flex justify-center lg:hidden">
+                  <InstallButton />
+                </div>
                 <LessonList onSelectLesson={setSelectedLesson} />
               </motion.div>
             )
@@ -78,6 +82,9 @@ export default function Home() {
                 highlight="Libre"
                 description="¡Toca lo que quieras! Experimenta con los sonidos y crea tu propia música."
               />
+              <div className="flex justify-center lg:hidden">
+                <InstallButton />
+              </div>
               <div className="w-full bg-white p-4 md:p-12 rounded-[2rem] md:rounded-[3rem] shadow-2xl shadow-zinc-200/50 border border-zinc-100">
                 <Piano />
               </div>
