@@ -41,22 +41,22 @@ export function LessonList({ onSelectLesson }) {
             onValueChange={setActiveLevel}
             className="w-full"
           >
-            <TabsList className="grid w-full grid-cols-3 bg-zinc-100 rounded-xl p-1 h-12">
+            <TabsList className="flex w-full bg-zinc-100 rounded-xl p-1 h-auto min-h-[3rem]">
               <TabsTrigger
                 value="Easy"
-                className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold text-xs sm:text-sm"
+                className="flex-1 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold text-[10px] xs:text-xs sm:text-sm py-2 px-1"
               >
                 Fácil
               </TabsTrigger>
               <TabsTrigger
                 value="Medium"
-                className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold text-xs sm:text-sm"
+                className="flex-1 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold text-[10px] xs:text-xs sm:text-sm py-2 px-1"
               >
                 Intermedio
               </TabsTrigger>
               <TabsTrigger
                 value="Hard"
-                className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold text-xs sm:text-sm"
+                className="flex-1 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold text-[10px] xs:text-xs sm:text-sm py-2 px-1"
               >
                 Avanzado
               </TabsTrigger>

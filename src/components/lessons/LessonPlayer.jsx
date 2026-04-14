@@ -30,7 +30,7 @@ export function LessonPlayer({ lesson, onBack }) {
 
   const timerRef = useRef(null);
 
-  if (!lesson || !lesson.steps) {
+  if (!lesson || !Array.isArray(lesson.steps)) {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-center space-y-4">
         <p className="text-zinc-500">No se pudo cargar la lección.</p>
@@ -39,7 +39,7 @@ export function LessonPlayer({ lesson, onBack }) {
     );
   }
 
-  const totalDuration = lesson.steps.length * 1.5;
+  const totalDuration = (lesson.steps?.length || 0) * 1.5;
 
   const startPlayback = () => {
     setIsPlaying(true);
@@ -78,7 +78,7 @@ export function LessonPlayer({ lesson, onBack }) {
     };
   }, [isPlaying, totalDuration]);
 
-  const progress = (currentTime / totalDuration) * 100;
+  const progress = totalDuration > 0 ? (currentTime / totalDuration) * 100 : 0;
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 px-4">

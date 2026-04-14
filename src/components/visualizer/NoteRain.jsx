@@ -16,14 +16,16 @@ export function NoteRain({ lesson, isPlaying, currentTime, onNoteActive }) {
     }
 
     // Calculate which notes should be visible based on current time
-    const notes = lesson.steps.map((step, index) => {
+    const notes = (lesson.steps || []).map((step, index) => {
       const startTime = step.startTime ?? index * 1.5;
       return { ...step, startTime, id: `${step.note}-${index}` };
     });
 
     const active = notes.filter((note) => {
       const timeToStart = note.startTime - currentTime;
-      return timeToStart > -0.5 && timeToStart < FALL_DURATION;
+      return (
+        !isNaN(timeToStart) && timeToStart > -0.5 && timeToStart < FALL_DURATION
+      );
     });
 
     setVisibleNotes(active);
