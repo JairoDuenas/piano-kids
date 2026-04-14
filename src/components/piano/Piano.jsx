@@ -34,22 +34,24 @@ export function Piano({ highlightedNote, onNotePlayed }) {
   }, []);
 
   return (
-    <div className="w-full p-4 md:p-8 bg-zinc-50 rounded-2xl shadow-xl border border-zinc-200">
-      <div className="flex relative w-full h-full min-h-[200px]">
-        {PIANO_KEYS.map((key) => (
-          <PianoKey
-            key={key.note}
-            note={key.note}
-            label={key.label}
-            isBlack={key.isBlack}
-            keyboardKey={key.keyboardKey}
-            color={key.color}
-            isPressed={pressedKeys.has(key.note)}
-            isHighlighted={highlightedNote === key.note}
-            onMouseDown={() => handleNoteDown(key.note)}
-            onMouseUp={() => handleNoteUp(key.note)}
-          />
-        ))}
+    <div className="w-full p-2 md:p-8 bg-zinc-50 rounded-2xl shadow-xl border border-zinc-200 overflow-hidden">
+      <div className="flex relative w-full h-full min-h-[160px] md:min-h-[200px] overflow-x-auto pb-4 scrollbar-hide">
+        <div className="flex relative min-w-max sm:min-w-0 sm:w-full h-full">
+          {PIANO_KEYS.map((key) => (
+            <PianoKey
+              key={key.note}
+              note={key.note}
+              label={key.label}
+              isBlack={key.isBlack}
+              keyboardKey={key.keyboardKey}
+              color={key.color}
+              isPressed={pressedKeys.has(key.note)}
+              isHighlighted={highlightedNote === key.note}
+              onMouseDown={() => handleNoteDown(key.note)}
+              onMouseUp={() => handleNoteUp(key.note)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -7,10 +7,10 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "../ui/Card";
-import { Button } from "../ui/Button";
-import { Progress } from "../ui/Progress";
-import { Badge } from "../ui/Badge";
+} from "@/src/components/ui/card";
+import { Button } from "@/src/components/ui/button";
+import { Progress } from "@/src/components/ui/progress";
+import { Badge } from "@/src/components/ui/badge";
 import {
   Play,
   Pause,
@@ -20,6 +20,7 @@ import {
   Eye,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { cn } from "@/src/utils/utils";
 
 export function LessonPlayer({ lesson, onBack }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -28,7 +29,17 @@ export function LessonPlayer({ lesson, onBack }) {
   const [isCompleted, setIsCompleted] = useState(false);
 
   const timerRef = useRef(null);
-  const totalDuration = lesson.steps.length * 1.5; // Estimated duration
+
+  if (!lesson || !lesson.steps) {
+    return (
+      <div className="flex flex-col items-center justify-center p-12 text-center space-y-4">
+        <p className="text-zinc-500">No se pudo cargar la lección.</p>
+        <Button onClick={onBack}>Volver</Button>
+      </div>
+    );
+  }
+
+  const totalDuration = lesson.steps.length * 1.5;
 
   const startPlayback = () => {
     setIsPlaying(true);
@@ -70,17 +81,17 @@ export function LessonPlayer({ lesson, onBack }) {
   const progress = (currentTime / totalDuration) * 100;
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={onBack} className="gap-2">
+    <div className="max-w-5xl mx-auto space-y-6 px-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <Button variant="ghost" onClick={onBack} className="gap-2 -ml-2">
           <ArrowLeft className="w-4 h-4" /> Volver
         </Button>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4">
           <Badge
             variant="outline"
             className="bg-amber-50 text-amber-700 border-amber-200"
           >
-            Guía Visual: {lesson.difficulty}
+            {lesson.difficulty}
           </Badge>
           <div className="text-sm font-medium text-zinc-500">
             {Math.floor(currentTime)}s / {Math.floor(totalDuration)}s
@@ -89,8 +100,32 @@ export function LessonPlayer({ lesson, onBack }) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column: Info & Controls */}
-        <div className="space-y-6">
+        {/* Right Column: Visualizer (First on mobile) */}
+        <div className="lg:col-span-2 space-y-4 order-1 lg:order-2">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-zinc-200">
+            <NoteRain
+              lesson={lesson}
+              isPlaying={isPlaying}
+              currentTime={currentTime}
+              onNoteActive={setActiveNote}
+            />
+
+            <div className="mt-[-1px] bg-white">
+              <Piano highlightedNote={activeNote} />
+            </div>
+
+            <div className="absolute top-4 right-4 px-3 py-1 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest rounded-full pointer-events-none">
+              Mapa de Referencia
+            </div>
+          </div>
+
+          <div className="px-2">
+            <Progress value={progress} className="h-2 bg-zinc-100" />
+          </div>
+        </div>
+
+        {/* Left Column: Info & Controls (Second on mobile) */}
+        <div className="space-y-6 order-2 lg:order-1">
           <Card className="border-none shadow-xl bg-white/80 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-2xl font-bold text-zinc-900">
@@ -165,30 +200,6 @@ export function LessonPlayer({ lesson, onBack }) {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-
-        {/* Right Column: Visualizer */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="relative">
-            <NoteRain
-              lesson={lesson}
-              isPlaying={isPlaying}
-              currentTime={currentTime}
-              onNoteActive={setActiveNote}
-            />
-
-            <div className="mt-[-1px]">
-              <Piano highlightedNote={activeNote} />
-            </div>
-
-            <div className="absolute top-4 right-4 px-3 py-1 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest rounded-full">
-              Mapa de Referencia
-            </div>
-          </div>
-
-          <div className="px-2">
-            <Progress value={progress} className="h-2 bg-zinc-100" />
-          </div>
         </div>
       </div>
     </div>

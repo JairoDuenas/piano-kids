@@ -46,7 +46,7 @@ export function NoteRain({ lesson, isPlaying, currentTime, onNoteActive }) {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[400px] bg-zinc-900/5 rounded-t-2xl overflow-hidden border-x border-t border-zinc-200"
+      className="relative w-full h-[300px] sm:h-[400px] bg-zinc-900/5 rounded-t-2xl overflow-hidden border-x border-t border-zinc-200"
     >
       {/* Grid Lines for Reference */}
       <div className="absolute inset-0 flex">

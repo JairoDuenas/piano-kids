@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { SONGS } from "../../data/songs";
-import { generateNewSong } from "../../services/geminiService";
+import { SONGS } from "@/src/data/songs";
+import { generateNewSong } from "@/src/services/geminiService";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "../ui/Card";
-import { Button } from "../ui/Button";
-import { Badge } from "../ui/Badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/Tabs";
+} from "@/src/components/ui/card";
+import { Button } from "@/src/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/src/components/ui/tabs";
 import { Music, Eye, Star, Sparkles, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { cn } from "@/src/utils/utils";
 
 export function LessonList({ onSelectLesson }) {
   const [activeLevel, setActiveLevel] = useState("Easy");
@@ -34,29 +34,29 @@ export function LessonList({ onSelectLesson }) {
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
-      <div className="flex flex-col items-center gap-6">
-        <div className="flex items-center gap-4 w-full max-w-2xl">
+      <div className="flex flex-col items-center gap-6 px-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full max-w-2xl">
           <Tabs
             value={activeLevel}
             onValueChange={setActiveLevel}
-            className="flex-1"
+            className="w-full"
           >
-            <TabsList className="grid w-full grid-cols-3 bg-zinc-100 rounded-xl p-1">
+            <TabsList className="grid w-full grid-cols-3 bg-zinc-100 rounded-xl p-1 h-12">
               <TabsTrigger
                 value="Easy"
-                className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold"
+                className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold text-xs sm:text-sm"
               >
                 Fácil
               </TabsTrigger>
               <TabsTrigger
                 value="Medium"
-                className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold"
+                className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold text-xs sm:text-sm"
               >
                 Intermedio
               </TabsTrigger>
               <TabsTrigger
                 value="Hard"
-                className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold"
+                className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm font-bold text-xs sm:text-sm"
               >
                 Avanzado
               </TabsTrigger>
@@ -67,7 +67,7 @@ export function LessonList({ onSelectLesson }) {
             onClick={handleDiscover}
             disabled={isGenerating}
             variant="outline"
-            className="rounded-xl border-zinc-200 hover:bg-amber-50 hover:text-amber-600 hover:border-amber-200 transition-all gap-2"
+            className="w-full sm:w-auto rounded-xl border-zinc-200 h-12 hover:bg-amber-50 hover:text-amber-600 hover:border-amber-200 transition-all gap-2"
           >
             {isGenerating ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -98,7 +98,7 @@ export function LessonList({ onSelectLesson }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4"
         >
           {filteredSongs.map((lesson, index) => (
             <motion.div
@@ -160,9 +160,4 @@ export function LessonList({ onSelectLesson }) {
       </AnimatePresence>
     </div>
   );
-}
-
-// Helper function for conditional classes if not imported
-function cn(...classes) {
-  return classes.filter(Boolean).join(" ");
 }

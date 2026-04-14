@@ -1,4 +1,3 @@
-import React from "react";
 import { GraduationCap, Music2, Piano as PianoIcon } from "lucide-react";
 import { cn } from "../../utils/utils";
 import { InstallButton } from "../ui/InstallButton";
@@ -17,28 +16,30 @@ export function Header({ activeTab, onTabChange }) {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-zinc-100/50 p-1 rounded-2xl border border-zinc-200">
+          <div className="flex items-center gap-1 sm:gap-2 bg-zinc-100/50 p-1 rounded-2xl border border-zinc-200">
             <button
               onClick={() => onTabChange("lessons")}
               className={cn(
-                "px-6 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2",
+                "px-3 sm:px-6 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2",
                 activeTab === "lessons"
                   ? "bg-white shadow-sm text-zinc-900"
                   : "text-zinc-500 hover:text-zinc-900",
               )}
             >
-              <GraduationCap className="w-4 h-4" /> Lecciones
+              <GraduationCap className="w-4 h-4" />{" "}
+              <span className="hidden sm:inline">Lecciones</span>
             </button>
             <button
               onClick={() => onTabChange("freeplay")}
               className={cn(
-                "px-6 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2",
+                "px-3 sm:px-6 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2",
                 activeTab === "freeplay"
                   ? "bg-white shadow-sm text-zinc-900"
                   : "text-zinc-500 hover:text-zinc-900",
               )}
             >
-              <Music2 className="w-4 h-4" /> Práctica Libre
+              <Music2 className="w-4 h-4" />{" "}
+              <span className="hidden sm:inline">Práctica Libre</span>
             </button>
           </div>
 
